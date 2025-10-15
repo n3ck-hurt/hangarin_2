@@ -15,6 +15,7 @@ class ProgramAdmin(admin.ModelAdmin):
 	search_fields = ('name', 'college__name')
 	list_filter = ('college',)
 	ordering = ('college__name', 'name')
+	list_per_page = 50
 
 
 @admin.register(Organization)
@@ -23,6 +24,7 @@ class OrganizationAdmin(admin.ModelAdmin):
 	search_fields = ('name', 'college__name')
 	list_filter = ('college',)
 	ordering = ('name',)
+	list_per_page = 50
 
 
 @admin.register(Student)
@@ -31,6 +33,8 @@ class StudentAdmin(admin.ModelAdmin):
 	search_fields = ('student_id', 'lastname', 'firstname')
 	list_filter = ('program',)
 	ordering = ('lastname', 'firstname')
+	list_select_related = ('program',)
+	list_per_page = 50
 
 
 @admin.register(OrgMember)
@@ -40,3 +44,6 @@ class OrgMemberAdmin(admin.ModelAdmin):
 	list_filter = ('organization', 'date_joined')
 	date_hierarchy = 'date_joined'
 	ordering = ('-date_joined',)
+	list_select_related = ('student', 'organization')
+	raw_id_fields = ('student',)
+	list_per_page = 50
